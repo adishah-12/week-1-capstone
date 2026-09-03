@@ -1,0 +1,10 @@
+.toast {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+  border-radius: var(--radius-input);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 1rem 1.5rem 0;
+}

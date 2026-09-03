@@ -1,24 +1,30 @@
-// src/main.tsx or src/App.tsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing'
-import Browse from './pages/Browse'
-import RecipeDetail from './pages/RecipeDetail'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Browse from './pages/Browse'
 import Dashboard from './pages/Dashboard'
+import AppLayout from './pages/components/AppLayout'
+import ProtectedRoute from './pages/components/ProtectedRoute'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
+    <Routes>
+      {/* No header */}
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+
+      {/* Header, public */}
+      <Route element={<AppLayout />}>
         <Route path="/recipes" element={<Browse />} />
-        <Route path="/recipes/:id" element={<RecipeDetail />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+
+        {/* Header + auth guard, both required */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+      </Route>
+    </Routes>
   )
 }
 
