@@ -5,7 +5,14 @@ import { describe, it, expect, vi } from 'vitest'
 import CreateRecipe from '../../src/pages/CreateRecipe'
 import api from '../../src/api/client'
 
-vi.mock('../api/client')
+vi.mock('../../src/api/client', () => ({
+  default: {
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
+  },
+}))
 
 describe('CreateRecipe', () => {
   it('shows a validation error when title is empty', async () => {

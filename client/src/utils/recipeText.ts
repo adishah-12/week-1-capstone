@@ -1,4 +1,4 @@
-import type { Ingredient, Instruction } from '../types/recipe'
+import type { Ingredient, Instruction, RecipePayload } from '../types/recipe'
 
 export function parseIngredientLine(line: string): Ingredient {
   const trimmed = line.trim()
@@ -52,4 +52,18 @@ export function parseTags(text: string): string[] {
 
 export function tagsToText(tags: string[]): string {
   return tags.join(', ')
+}
+
+export function normalizePayload(payload: RecipePayload): string {
+  return JSON.stringify({
+    title: payload.title,
+    description: payload.description,
+    image: payload.image,
+    tags: payload.tags,
+    ingredients: payload.ingredients.map((i) => ({ name: i.name, quantity: i.quantity })),
+    instructions: payload.instructions
+      .slice()
+      .sort((a, b) => a.step - b.step)
+      .map((i) => ({ step: i.step, description: i.description })),
+  })
 }

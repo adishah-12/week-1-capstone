@@ -4,7 +4,14 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import RecipeDetail from '../../src/pages/RecipeDetail'
 import api from '../../src/api/client'
 
-vi.mock('../api/client')
+vi.mock('../../src/api/client', () => ({
+  default: {
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
+  },
+}))
 
 const mockRecipe = {
   _id: '1',

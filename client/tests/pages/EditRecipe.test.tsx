@@ -7,9 +7,22 @@ import api from '../../src/api/client'
 import { useAuth } from '../../src/context/AuthContext'
 import { usePageLoading } from '../../src/context/PageLoadingContext'
 
-vi.mock('../api/client')
-vi.mock('../context/AuthContext')
-vi.mock('../context/PageLoadingContext')
+vi.mock('../../src/api/client', () => ({
+  default: {
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
+  },
+}))
+
+vi.mock('../../src/context/AuthContext', () => ({
+  useAuth: vi.fn(),
+}))
+
+vi.mock('../../src/context/PageLoadingContext', () => ({
+  usePageLoading: vi.fn(),
+}))
 
 const mockRecipe = {
   _id: '1',

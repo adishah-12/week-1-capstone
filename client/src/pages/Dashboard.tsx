@@ -88,13 +88,14 @@ function Dashboard() {
             ))}
           </div>
         )}
-
-        <Link to="/recipes/new" className="btn btn--primary dashboard__create-btn">
-          Create Recipe
-        </Link>
-        <Link to="/recipes" className="btn btn--outline dashboard__browse-btn">
-          Browse Recipes
-        </Link>
+        <div className="button-grid">
+          <Link to="/recipes/new" className="btn btn--primary dashboard__create-btn">
+            Create Recipe
+          </Link>
+          <Link to="/recipes" className="btn btn--outline dashboard__browse-btn">
+            Browse Recipes
+          </Link>
+        </div>
 
         {recipeToDelete && (
           <ConfirmModal

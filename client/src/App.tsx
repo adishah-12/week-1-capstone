@@ -9,6 +9,7 @@ import ProtectedRoute from './pages/components/ProtectedRoute'
 import RecipeDetail from './pages/RecipeDetail'
 import CreateRecipe from './pages/CreateRecipe'
 import Profile from './pages/Profile'
+import EditRecipe from './pages/EditRecipe'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/recipes/:id" element={<RecipeDetail />} />
 
         <Route element={<ProtectedRoute />}>
+          <Route path="/recipes/:id/edit" element={<EditRecipe />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/recipes/new" element={<CreateRecipe />} />
           <Route path="/profile" element={<Profile />} />

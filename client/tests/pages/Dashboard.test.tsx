@@ -5,9 +5,25 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import Dashboard from '../../src/pages/Dashboard'
 import api from '../../src/api/client'
 import { useAuth } from '../../src/context/AuthContext'
+import { usePageLoading } from '../../src/context/PageLoadingContext'
 
-vi.mock('../api/client')
-vi.mock('../context/AuthContext')
+vi.mock('../../src/api/client', () => ({
+  default: {
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
+  },
+}))
+
+vi.mock('../../src/context/AuthContext', () => ({
+  useAuth: vi.fn(),
+}))
+
+vi.mock('../../src/context/PageLoadingContext', () => ({
+  usePageLoading: vi.fn(),
+}))
+
 
 const mockRecipes = [
   {
@@ -45,6 +61,10 @@ describe('Dashboard', () => {
       login: vi.fn(),
       signup: vi.fn(),
       logout: vi.fn(),
+    })
+    vi.mocked(usePageLoading).mockReturnValue({
+      isPageLoading: false,
+      setIsPageLoading: vi.fn(),
     })
     vi.mocked(api.get).mockResolvedValue({ data: mockRecipes })
   })

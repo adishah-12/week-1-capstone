@@ -5,7 +5,18 @@ import { describe, it, expect, vi } from 'vitest'
 import Login from '../../src/pages/Login'
 import { useAuth } from '../../src/context/AuthContext'
 
-vi.mock('../context/AuthContext')
+vi.mock('../../src/api/client', () => ({
+  default: {
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
+  },
+}))
+
+vi.mock('../../src/context/AuthContext', () => ({
+  useAuth: vi.fn(),
+}))
 
 describe('Login', () => {
   it('calls login and navigates on success', async () => {

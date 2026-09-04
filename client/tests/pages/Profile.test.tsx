@@ -5,7 +5,9 @@ import { describe, it, expect, vi } from 'vitest'
 import Profile from '../../src/pages/Profile'
 import { useAuth } from '../../src/context/AuthContext'
 
-vi.mock('../context/AuthContext')
+vi.mock('../../src/context/AuthContext', () => ({
+  useAuth: vi.fn(),
+}))
 
 function mockAuth(overrides = {}) {
   vi.mocked(useAuth).mockReturnValue({

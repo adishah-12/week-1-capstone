@@ -13,6 +13,7 @@ import {
   instructionsToText,
   parseTags,
   tagsToText,
+  normalizePayload,
 } from '../utils/recipeText'
 import './CreateRecipe.css' // shared styling 
 
@@ -89,9 +90,9 @@ function EditRecipe() {
   }
 
   function isDirty(): boolean {
-    if (!initial) return false
-    return JSON.stringify(buildPayload()) !== JSON.stringify(initial)
-  }
+  if (!initial) return false
+  return normalizePayload(buildPayload()) !== normalizePayload(initial)
+}
 
   async function saveChanges() {
     if (!title.trim()) {

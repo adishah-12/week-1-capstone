@@ -8,5 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/setup.ts',
     globals: true,
+    pool: 'vmThreads',
+    exclude: ['**/node_modules/**', '**/e2e/**'],
   },
 })
