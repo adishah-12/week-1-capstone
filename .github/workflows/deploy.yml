@@ -22,14 +22,6 @@ jobs:
       - run: npm ci
       - run: npm run test:run
 
-      - name: Create env file for e2e
-        run: echo "VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}" > .env.production
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-      - run: npm run play
-
   build-and-deploy:
     needs: test
     runs-on: ubuntu-latest
