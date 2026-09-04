@@ -29,7 +29,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Create env file for build
-        run: echo "VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}" > client/.env.production
+        run: |
+          echo "VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}" > client/.env.production
+          echo "VITE_APP_VERSION=$(git rev-parse --short HEAD)" >> client/.env.production
 
       - name: Build client via Docker Compose
         run: docker compose -f docker-compose.prod.yml run --rm client-build
