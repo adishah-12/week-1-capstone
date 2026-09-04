@@ -1,0 +1,68 @@
+.profile {
+  background: var(--color-bg);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.profile__content {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.breadcrumbs {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+.breadcrumbs a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.profile__heading {
+  font-family: var(--font-heading);
+  margin: 0 0 1.5rem;
+}
+
+.profile label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.profile input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+}
+
+.profile .btn {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.profile__delete-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: none;
+  border: none;
+  color: var(--color-error);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+}
+.profile__delete-link:hover {
+  text-decoration: underline;
+}

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import MinimalHeader from './components/MinimalHeader'
 import './Signup.css'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -55,43 +56,46 @@ function Signup() {
 
   return (
     <div className="signup">
-      <div className="signup__card">
-        <h1 className="signup__heading">Create an Account</h1>
+      <MinimalHeader />
+      <div className="signup__body">
+        <div className="signup__card">
+          <h1 className="signup__heading">Create an Account</h1>
 
-        <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor="email">Username</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="gaya@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={emailError ? 'input--error' : ''}
-          />
-          {emailError && <p className="signup__field-error">{emailError}</p>}
+          <form onSubmit={handleSubmit} noValidate>
+            <label htmlFor="email">Username</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="gaya@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={emailError ? 'input--error' : ''}
+            />
+            {emailError && <p className="signup__field-error">{emailError}</p>}
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={passwordError ? 'input--error' : ''}
-          />
-          {passwordError && <p className="signup__field-error">{passwordError}</p>}
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={passwordError ? 'input--error' : ''}
+            />
+            {passwordError && <p className="signup__field-error">{passwordError}</p>}
 
-          {submitError && <p className="signup__submit-error">{submitError}</p>}
+            {submitError && <p className="signup__submit-error">{submitError}</p>}
 
-          <button type="submit" className="btn btn--primary" disabled={submitting}>
-            {submitting ? 'Creating account...' : 'Create Account'}
-          </button>
-        </form>
+            <button type="submit" className="btn btn--primary" disabled={submitting}>
+              {submitting ? 'Creating account...' : 'Create Account'}
+            </button>
+          </form>
 
-        <Link to="/login" className="btn btn--outline signup__cancel-link">
-          Cancel
-        </Link>
+          <Link to="/login" className="btn btn--outline signup__cancel-link">
+            Cancel
+          </Link>
+        </div>
       </div>
     </div>
   )

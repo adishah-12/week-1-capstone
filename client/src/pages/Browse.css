@@ -1,9 +1,13 @@
 .browse {
   background: var(--color-bg);
   min-height: 100vh;
-  padding: 2rem 1.5rem;
+  width: 100%;
+}
+
+.browse__content {
   max-width: 500px;
   margin: 0 auto;
+  padding: 2rem 1.5rem;
 }
 
 .browse__heading {

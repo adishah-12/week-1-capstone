@@ -44,26 +44,28 @@ function Browse() {
 
   return (
     <div className="browse">
-      <h1 className="browse__heading">Recipe List</h1>
-      <input
-        className="browse__search"
-        type="text"
-        placeholder="Search recipes"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <div className="browse__content">
+        <h1 className="browse__heading">Recipe List</h1>
+        <input
+          className="browse__search"
+          type="text"
+          placeholder="Search recipes"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
 
-      {loading && <p>Loading recipes...</p>}
-      {error && <p className="browse__error">{error}</p>}
+        {loading && <p>Loading recipes...</p>}
+        {error && <p className="browse__error">{error}</p>}
 
-      {!loading && !error && filtered.length === 0 && (
-        <p className="browse__empty">We couldn't find any recipes.</p>
-      )}
+        {!loading && !error && filtered.length === 0 && (
+          <p className="browse__empty">We couldn't find any recipes.</p>
+        )}
 
-      <div className="browse__list">
-        {filtered.map((recipe) => (
-          <RecipeCard key={recipe._id} recipe={recipe} />
-        ))}
+        <div className="browse__list">
+          {filtered.map((recipe) => (
+            <RecipeCard key={recipe._id} recipe={recipe} />
+          ))}
+        </div>
       </div>
     </div>
   )

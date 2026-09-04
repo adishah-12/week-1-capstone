@@ -1,0 +1,7 @@
+.minimal-header {
+  padding: 1rem 1.5rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: center;
+}

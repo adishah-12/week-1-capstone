@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import MinimalHeader from './components/MinimalHeader'
 import './Login.css'
 
 function Login() {
@@ -29,45 +30,48 @@ function Login() {
 
   return (
     <div className="login">
-      <div className="login__card">
-        <h1 className="login__heading">Welcome Back!</h1>
-        <p className="login__subtext">Log in to your account to continue</p>
+      <MinimalHeader />
+      <div className="login__body">
+        <div className="login__card">
+          <h1 className="login__heading">Welcome Back!</h1>
+          <p className="login__subtext">Log in to your account to continue</p>
 
-        <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <form onSubmit={handleSubmit} noValidate>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          {error && <p className="login__error">{error}</p>}
+            {error && <p className="login__error">{error}</p>}
 
-          <button type="submit" className="btn btn--primary" disabled={submitting}>
-            {submitting ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
+            <button type="submit" className="btn btn--primary" disabled={submitting}>
+              {submitting ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
 
-        <Link to="/signup" className="btn btn--outline login__signup-link">
-          Create an Account
-        </Link>
+          <Link to="/signup" className="btn btn--outline login__signup-link">
+            Create an Account
+          </Link>
 
-        <Link to="/recipes" className="login__explore-link">
-          Explore Recipes without Logging In
-        </Link>
+          <Link to="/recipes" className="login__explore-link">
+            Explore Recipes without Logging In
+          </Link>
+        </div>
       </div>
     </div>
   )

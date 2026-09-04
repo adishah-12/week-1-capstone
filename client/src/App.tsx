@@ -6,22 +6,25 @@ import Browse from './pages/Browse'
 import Dashboard from './pages/Dashboard'
 import AppLayout from './pages/components/AppLayout'
 import ProtectedRoute from './pages/components/ProtectedRoute'
+import RecipeDetail from './pages/RecipeDetail'
+import CreateRecipe from './pages/CreateRecipe'
+import Profile from './pages/Profile'
 
 function App() {
   return (
     <Routes>
-      {/* No header */}
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
-      {/* Header, public */}
       <Route element={<AppLayout />}>
         <Route path="/recipes" element={<Browse />} />
+        <Route path="/recipes/:id" element={<RecipeDetail />} />
 
-        {/* Header + auth guard, both required */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/recipes/new" element={<CreateRecipe />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
     </Routes>
