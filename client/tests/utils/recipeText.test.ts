@@ -25,9 +25,9 @@ describe('parseIngredients', () => {
     expect(parseIngredients('1 Onion')).toEqual([{ quantity: '1', name: 'Onion' }])
   })
 
-  it('falls back to name-only when there is no leading quantity', () => {
+  it('falls back to a non-empty placeholder when there is no leading quantity', () => {
     expect(parseIngredients('Salt to taste')).toEqual([
-      { quantity: '', name: 'Salt to taste' },
+      { quantity: 'to taste', name: 'Salt to taste' },
     ])
   })
 
@@ -35,7 +35,7 @@ describe('parseIngredients', () => {
     expect(parseIngredients('1 Tbsp Olive Oil, 1 Onion, Salt to taste')).toEqual([
       { quantity: '1 Tbsp', name: 'Olive Oil' },
       { quantity: '1', name: 'Onion' },
-      { quantity: '', name: 'Salt to taste' },
+      { quantity: 'to taste', name: 'Salt to taste' },
     ])
   })
 
@@ -60,8 +60,8 @@ describe('ingredientsToText', () => {
     expect(result).toBe('1 Tbsp Olive Oil, 1 Onion')
   })
 
-  it('omits the quantity segment when quantity is empty', () => {
-    const result = ingredientsToText([{ quantity: '', name: 'Salt to taste' }])
+  it('omits the placeholder quantity segment when converting back to text', () => {
+    const result = ingredientsToText([{ quantity: 'to taste', name: 'Salt to taste' }])
     expect(result).toBe('Salt to taste')
   })
 

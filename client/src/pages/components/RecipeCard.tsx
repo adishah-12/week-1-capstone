@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import type { Recipe } from '../../types/recipe'
 import './RecipeCard.css'
+import TrashIcon from './TrashIcon'
+import PencilIcon from './PencilIcon'
 
 interface RecipeCardProps {
   recipe: Recipe
@@ -37,14 +39,14 @@ function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
               aria-label={`Delete ${recipe.title}`}
               onClick={() => onDelete(recipe)}
             >
-              🗑️
+              <TrashIcon />
             </button>
             <Link
               to={`/recipes/${recipe._id}/edit`}
               className="recipe-card__icon-btn"
               aria-label={`Edit ${recipe.title}`}
             >
-              ✏️
+              <PencilIcon />
             </Link>
           </div>
         ) : (

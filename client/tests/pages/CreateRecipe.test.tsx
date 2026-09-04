@@ -46,7 +46,7 @@ describe('CreateRecipe', () => {
       ingredients: [
         { quantity: '1 Tbsp', name: 'Olive Oil' },
         { quantity: '1', name: 'Onion' },
-        { quantity: '', name: 'Salt to taste' },
+        { quantity: 'to taste', name: 'Salt to taste' },
       ],
       instructions: [
         { step: 1, description: 'Saute onions in garlic.' },

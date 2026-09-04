@@ -1,5 +1,7 @@
 import type { Ingredient, Instruction, RecipePayload } from '../types/recipe'
 
+const NO_QUANTITY_PLACEHOLDER = 'to taste'
+
 export function parseIngredientLine(line: string): Ingredient {
   const trimmed = line.trim()
   const match = trimmed.match(/^([\d]+\/[\d]+|[\d.]+)\s*([a-zA-Z]+)?\s+(.*)$/)
@@ -10,7 +12,7 @@ export function parseIngredientLine(line: string): Ingredient {
       name: name.trim() || trimmed,
     }
   }
-  return { quantity: '', name: trimmed }
+  return { quantity: NO_QUANTITY_PLACEHOLDER, name: trimmed }
 }
 
 export function parseIngredients(text: string): Ingredient[] {
@@ -23,7 +25,11 @@ export function parseIngredients(text: string): Ingredient[] {
 
 export function ingredientsToText(ingredients: Ingredient[]): string {
   return ingredients
-    .map((ing) => (ing.quantity ? `${ing.quantity} ${ing.name}` : ing.name))
+    .map((ing) =>
+      ing.quantity && ing.quantity !== NO_QUANTITY_PLACEHOLDER
+        ? `${ing.quantity} ${ing.name}`
+        : ing.name
+    )
     .join(', ')
 }
 

@@ -1,0 +1,9 @@
+services:
+  client-build:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.build
+    command: npm run build
+    volumes:
+      - ./client:/app
+      - /app/node_modules

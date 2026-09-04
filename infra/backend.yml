@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "EC2 + Docker Compose (no IAM/SSM). Builds ./backend and exposes :3000"
+Parameters:
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: "Existing EC2 key pair for SSH"
+Mappings:
+  Net:
+    IDs:
+      VpcId: vpc-069083ff69126b8b7
+      SubnetId: subnet-06eab93e52553da8f
+Resources:
+  AppSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Open port 3000 (demo) + SSH"
+      VpcId: !FindInMap [Net, IDs, VpcId]
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3000
+          ToPort: 3000
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  Box:
+    Type: AWS::EC2::Instance
+    DependsOn: AppSG
+    Properties:
+      InstanceType: t3.medium
+      KeyName: !Ref KeyName
+      ImageId: !Sub "{{resolve:ssm:/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id}}"
+      SubnetId: !FindInMap [Net, IDs, SubnetId]
+      SecurityGroupIds: [!Ref AppSG]
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash -xe
+          apt-get update -y
+          apt-get install -y docker.io git curl openssl
+          systemctl enable --now docker
+          curl -L https://github.com/docker/compose/releases/download/v2.29.0/docker-compose-linux-x86_64 \
+               -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+          cd /opt
+          git clone --branch main --depth 1 https://github.com/adishah-12/week-1-capstone.git app || true
+          cd app
+          cat > docker-compose.yml <<'COMPOSE_EOF'
+          version: "3.9"
+          services:
+            mongo:
+              image: mongo:7
+              volumes: [ "mongo-data:/data/db" ]
+            api:
+              build: { context: ./backend }
+              environment:
+                PORT: 3000
+                MONGO_URL: mongodb://mongo:27017/spoonful
+                JWT_SECRET: ${JWT_SECRET}
+              ports: [ "3000:3000" ]
+              depends_on: [ mongo ]
+              restart: unless-stopped
+          volumes: { mongo-data: {} }
+          COMPOSE_EOF
+          export JWT_SECRET=$(openssl rand -hex 16)
+          docker-compose build
+          docker-compose up -d
+Outputs:
+  ApiURL:
+    Description: "Public endpoint for this backend"
+    Value: !Sub "http://${Box.PublicDnsName}:3000"
